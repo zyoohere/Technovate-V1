@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('excerpt')->nullable(); //ringkasan artikel
             $table->longText('content');
             $table->string('image')->nullable();
-            $table->enum('status', ['draft', 'published', 'archived'])->default('draft');
+            $table->enum('status', ['draft', 'published','review', 'archived'])->default('draft');
             $table->unsignedBigInteger('view_count')->default(0);
             $table->dateTime('published_at')->nullable();
             $table->boolean('is_featured')->default(false);
@@ -28,7 +28,7 @@ return new class extends Migration
         });
     }
 
-    /**
+    /**s
      * Reverse the migrations.
      */
     public function down(): void

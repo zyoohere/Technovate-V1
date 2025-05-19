@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('artikel_views', function (Blueprint $table) {
             $table->id();
-            $table->string('nama')->unique();
-            $table->string('slug')->unique();
-            $table->foreignId('parent_id')->nullable()->constrained('categories')->nullOnDelete('cascade');
-            $table->timestamps();
+            $table->foreignId('artikel_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
+            $table->ipAddress('ip_address');
+            $table->timestamp('viewed_at')->useCurrent();
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('artikel_views');
     }
 };

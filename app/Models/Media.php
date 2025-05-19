@@ -11,21 +11,18 @@ class Media extends Model
 
     protected $fillable = [
         'artikel_id',
+        'title',
         'caption',
-        'filename',
-        'url',
         'type',
-        'uploaded_by',
-        'provider',
-        'thumbnail',
+        'media_path',
+        'media_url',
         'is_featured',
+        'uploaded_by',
         'order',
-        'metadata',
     ];
 
     protected $casts = [
         'is_featured' => 'boolean',
-        'metadata' => 'array',
         'order' => 'integer',
     ];
 

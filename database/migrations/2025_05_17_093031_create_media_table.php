@@ -13,17 +13,15 @@ return new class extends Migration
     {
         Schema::create('media', function (Blueprint $table) {
             $table->id();
+            $table->string('title')->nullable();
             $table->string('caption')->nullable();
-            $table->string('filename')->nullable(); // Untuk file lokal
-            $table->string('url');                  // Lokal atau eksternal
-            $table->enum('type', ['image', 'video', 'external'])->default('image');
-            $table->string('provider')->nullable(); // YouTube, Vimeo, dll
-            $table->string('thumbnail')->nullable();
-            $table->foreignId('artikel_id')->nullable()->constrained('artikels')->onDelete('cascade'); // opsional
+            $table->enum('type', ['document','image', 'video', 'external'])->default('image');
+            $table->string('media_path')->nullable(); // Untuk file upload
+            $table->string('media_url')->nullable(); // Untuk file link
             $table->boolean('is_featured')->default(false);
             $table->unsignedInteger('order')->default(0);
-            $table->json('metadata')->nullable(); // resolusi, ukuran, dll
             $table->foreignId('uploaded_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('artikel_id')->nullable()->constrained('artikels')->onDelete('cascade'); // opsional
             $table->timestamps();
         });
     }
