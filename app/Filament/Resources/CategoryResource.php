@@ -38,16 +38,6 @@ class CategoryResource extends Resource
                 TextInput::make('slug')
                     ->required()
                     ->readonly(),
-                Select::make('parent_id')
-                    ->label('Parent Category')
-                    ->relationship('parent', 'nama')
-                    ->options(function () {
-                        return Category::whereNull('parent_id') // hanya kategori utama
-                            ->pluck('nama', 'id');
-                    })
-                    ->searchable()
-                    ->preload()
-                    ->nullable(),
             ]);
     }
 
@@ -57,7 +47,6 @@ class CategoryResource extends Resource
             ->columns([
                 TextColumn::make('nama')->sortable()->searchable(),
                 TextColumn::make('slug')->sortable()->searchable(),
-                TextColumn::make('parent.nama')->label('Parent')->sortable(),
                 TextColumn::make('created_at')->dateTime()->sortable(),
             ])
             ->filters([

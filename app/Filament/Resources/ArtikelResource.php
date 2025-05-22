@@ -6,6 +6,7 @@ use App\Filament\Resources\ArtikelResource\Pages;
 use App\Models\Artikel;
 use App\Models\Category;
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
+use Closure;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -67,8 +68,7 @@ class ArtikelResource extends Resource
                 ->required(),
 
             Select::make('category_id')
-                ->label('Kategori')
-                ->options(Category::whereNotNull('parent_id')->pluck('nama', 'id'))
+                ->relationship('category', 'nama') // <-- Ini WAJIB agar relasi dikenali
                 ->preload()
                 ->searchable()
                 ->required(),
@@ -88,13 +88,9 @@ class ArtikelResource extends Resource
                 ->readOnly()
                 ->required()
                 ->unique(Artikel::class, 'slug', ignoreRecord: true),
-
-            Textarea::make('excerpt')
-                ->label('Ringkasan')
-                ->maxLength(500),
-
             RichEditor::make('content')
                 ->label('Konten Artikel')
+                ->reactive()
                 ->toolbarButtons([
                     'bold',
                     'italic',
@@ -107,6 +103,15 @@ class ArtikelResource extends Resource
                     'link',
                 ])
                 ->required(),
+
+            Textarea::make('excerpt')
+                ->label('Ringkasan')
+                ->disabled()
+                ->dehydrated(false)
+                ->afterStateUpdated(function ($state, callable $set) {
+                    $set('excerpt', \Illuminate\Support\Str::words(strip_tags($state), 30));
+                }),
+
 
             FileUpload::make('image')
                 ->label('Gambar')

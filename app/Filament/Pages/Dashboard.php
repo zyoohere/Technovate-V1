@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Widgets\ArtikelCategoryWidget;
 use App\Filament\Widgets\ArtikelTerpopuler;
 use App\Filament\Widgets\DashboardOverview;
 use App\Filament\Widgets\Komentar;
@@ -17,6 +18,7 @@ class Dashboard extends \Filament\Pages\Dashboard
     return [
         DashboardOverview::class,
         ArtikelTerpopuler::class,
+        ArtikelCategoryWidget::class,
         Komentar::class,
     ];
 }

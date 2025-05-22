@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('nama')->unique();
             $table->string('slug')->unique();
-            $table->foreignId('parent_id')->nullable()->constrained('categories')->nullOnDelete('cascade');
             $table->timestamps();
         });
     }

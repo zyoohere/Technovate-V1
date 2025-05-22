@@ -40,8 +40,8 @@ class AdminPanelProvider extends PanelProvider
             ->pages([])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                DashboardOverview::class,
-                ArtikelTerpopuler::class,
+                // DashboardOverview::class,
+                // ArtikelTerpopuler::class,
 
                 // Widgets\AccountWidget::class,
                 // Widgets\FilamentInfoWidget::class,
